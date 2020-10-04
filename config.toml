@@ -1,6 +1,6 @@
 baseurl = "/"
 languageCode = "en-us"
-title = "A Hugo website"
+title = "Apuntes"
 theme = "cactus"
 googleAnalytics = ""
 disqusShortname = ""
@@ -40,3 +40,5 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     height = 50
     alt = "Logo"
 
+[markup.goldmark.renderer]
+    unsafe = true
