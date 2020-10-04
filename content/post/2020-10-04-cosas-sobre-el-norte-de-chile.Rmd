@@ -1,0 +1,17 @@
+---
+title: cosas sobre el norte de chile
+author: soledad araya
+date: '2020-10-04'
+slug: cosas-sobre-el-norte-de-chile
+categories:
+  - chile
+tags:
+  - plot
+  - tonteras
+---
+
+Usando R Markdown para ver qué tan roja ha sido la segunda región desde las elecciones de 1992, primer año en el que se realizaron elecciones locales después del regreso a la democracia. Durante *tres* periodos electorales los alcaldes iban a elecciones en conjunto con los concejales, el concejal con más del... 40% o 50% de los votos, no lo recuerdo en este momento, era electo alcalde. En el caso de que ningún concejal sacara ese porcentaje, los concejales electos decidían. Durante esos periosos de vió, además, cómo la Concertación y la Alianza se repartían las municipalidades dividiendo el periodo en 2 años. Uno para la Concerta y otro para la Alianza.
+
+```{r}
+
+```
