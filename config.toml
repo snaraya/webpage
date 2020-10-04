@@ -32,10 +32,10 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     MathJaxVersion = "2.7.5"
 
     # path to the favicon, under "static"
-    favicon = "favicon.ico"
+    favicon = "/themes/cactus/static/images/favicon.ico"
 
     [params.logo]
-    url = "logo.png"
+    url = "/themes/cactus/static/images/logo.png"
     width = 50
     height = 50
     alt = "Logo"
