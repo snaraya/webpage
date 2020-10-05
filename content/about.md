@@ -62,7 +62,7 @@ Instituciones Políticas: Democracia y Desarrollo <br/>
 
 <hr>
 
-Organización Política de Chile 
+Organización Política de Chile <br/>
 <strong>Ayudante de cátedra</strong> Segundo semestre del 2015 <br/>
 
 
