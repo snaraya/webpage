@@ -22,6 +22,7 @@ Usando R Markdown para ver qué tan roja ha sido la segunda región desde las el
 library(tidyverse)
 library(foreign)
 library(lubridate)
+library(gghighlight)
 ```
 
 ```{r include = FALSE, echo = FALSE}
@@ -36,22 +37,61 @@ Haré un simple `ggplot` para que veamos qué onda la segunda región:
 
 data <- data_elecciones_15jul2020 %>% 
   filter(codigo_region_desde_2008 == "02") %>% 
-  select(fecha_eleccion, comuna, votos, coalicion, primera_mayoria, segunda_mayoria) %>% 
-  pivot_longer(cols = 5:6) %>% 
-  mutate(ano = year(fecha_eleccion))
+  select(fecha_eleccion, comuna, votos, coalicion_alianza, coalicion_concertacion, coalicion_independientes,
+         coalicion_otros) %>% 
+  pivot_longer(cols = 4:7) %>%
+  mutate(ano = year(fecha_eleccion)) %>% 
+  mutate(coalicion = case_when(
+    name == "coalicion_alianza" ~ 'Alianza',
+    name == "coalicion_concertacion" ~ 'Concertación',
+    name == "coalicion_independientes" ~ 'Independientes',
+    name == "coalicion_otros" ~ 'Otros'
+  ))
 
-coalicion_colores <- c("ALIANZA" = "#044DDF", "CONCERTACION" = "#DF0404", 
-                       "INDEPENDIENTES" ="#0BA904", "OTROS" = "#F5D806")
+coalicion_colores <- c("Alianza" = "#044DDF", "Concertación" = "#DF0404", 
+                       "Independientes" ="#0BA904", "Otros" = "#F5D806")
 
 ggplot(data, aes(x = ano, y = value, group = name, color = coalicion)) +
   geom_line() +
   facet_wrap(~comuna) +
   scale_x_continuous(breaks = seq(1996, 2016, by=4)) +
   scale_color_manual(name = NULL, values = coalicion_colores) +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
+  labs(x = "Año de elección", y = "Porcentaje de votación") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+plot_a <- ggplot(data, aes(x = ano, y = value, group = name, color = coalicion)) +
+  geom_line() +
+  facet_wrap(~comuna) +
+  scale_x_continuous(breaks = seq(1996, 2016, by=4)) +
+  scale_color_manual(name = NULL, values = coalicion_colores) +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
   labs(x = "Año de elección", y = "Porcentaje de votación") +
   theme_minimal() +
   theme(legend.position = "bottom")
 
 ```
 
+Ahora, podríamos evaluar uno a uno el desempeño de las coaliciones. Para eso, nos olvidaremos de las demás por un segundo. Cosa de distinguir de mejor manera cómo le fue a, por ejemplo, la Concertación/Nueva Mayoría en la segunda región, destacaremos sólo coalición. Para eso usaremos `gghighlight`
 
+```{r warning = FALSE}
+plot_a +
+  gghighlight(coalicion == "Concertación", calculate_per_facet = T, use_direct_label = FALSE)
+```
+
+También, podríamos poner el % de la persona que ganó las elecciones si y sólo si la persona es de la Concertación.
+
+```{r warning = FALSE}
+plot_a +
+  geom_text(data = data[data$coalicion=='Concertación',], aes(label = round(value, digits = 2)), vjust = -1) + 
+  gghighlight(coalicion == "Concertación", calculate_per_facet = T, use_direct_label = FALSE)
+```
+
+¿Por qué la coalición Concertación sacó tantos votos el 2012 en Taltal?
+
+Fui a la página del [SERVEL](https://historico.servel.cl/servel/app/index.php?r=EleccionesGenerico&id=8) para ver los resultados históricos. Seleccioné las elecciones municipales del 2012 en Taltal:
+
+![elecciones](/post/2020-10-04-cosas-sobre-el-norte-de-chile_files/historico_servel.png){width=80%}
+
+Los dos candidatos a alcaldes pertenecían a la misma coalición. Una estrategia bastante estúpida, pero el candidato desafiante,Sergio Orellana Montejo, quería destituir al hasta ese momento incumbente histórico de Taltal, Guillermo Hidalgo Ocampo. Y, digámoslo, la UDI nunca ha sido realmente una opción en la comuna. Excepto en el 2008, pero esa historia es para otro momento.

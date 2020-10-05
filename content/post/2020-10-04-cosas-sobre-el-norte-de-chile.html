@@ -17,4 +17,21 @@ editor_options:
 <p>Usando R Markdown para ver qué tan roja ha sido la segunda región desde las elecciones de 1992, primer año en el que se realizaron elecciones locales después del regreso a la democracia. Durante <em>tres</em> periodos electorales los alcaldes iban a elecciones en conjunto con los concejales, el concejal con más del… 40% o 50% de los votos, no lo recuerdo en este momento, era electo alcalde. En el caso de que ningún concejal sacara ese porcentaje, los concejales electos decidían. Durante esos periosos de vió, además, cómo la Concertación y la Alianza se repartían las municipalidades dividiendo el periodo en 2 años. Uno para la Concerta y otro para la Alianza.</p>
 <p>Cargué la base de datos y los paquetes que usaré, <code>tidyverse</code> para las compañeras.</p>
 <p>Haré un simple <code>ggplot</code> para que veamos qué onda la segunda región:</p>
+<pre><code>## Warning: Removed 3 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="/post/2020-10-04-cosas-sobre-el-norte-de-chile_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Ahora, podríamos evaluar uno a uno el desempeño de las coaliciones. Para eso, nos olvidaremos de las demás por un segundo. Cosa de distinguir de mejor manera cómo le fue a, por ejemplo, la Concertación/Nueva Mayoría en la segunda región, destacaremos sólo coalición. Para eso usaremos <code>gghighlight</code></p>
+<pre class="r"><code>plot_a +
+  gghighlight(coalicion == &quot;Concertación&quot;, calculate_per_facet = T, use_direct_label = FALSE)</code></pre>
+<p><img src="/post/2020-10-04-cosas-sobre-el-norte-de-chile_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>También, podríamos poner el % de la persona que ganó las elecciones si y sólo si la persona es de la Concertación.</p>
+<pre class="r"><code>plot_a +
+  geom_text(data = data[data$coalicion==&#39;Concertación&#39;,], aes(label = round(value, digits = 2)), vjust = -1) + 
+  gghighlight(coalicion == &quot;Concertación&quot;, calculate_per_facet = T, use_direct_label = FALSE)</code></pre>
+<p><img src="/post/2020-10-04-cosas-sobre-el-norte-de-chile_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>¿Por qué la coalición Concertación sacó tantos votos el 2012 en Taltal?</p>
+<p>Fui a la página del <a href="https://historico.servel.cl/servel/app/index.php?r=EleccionesGenerico&amp;id=8">SERVEL</a> para ver los resultados históricos. Seleccioné las elecciones municipales del 2012 en Taltal:</p>
+<div class="figure">
+<img src="/post/2020-10-04-cosas-sobre-el-norte-de-chile_files/historico_servel.png" alt="elecciones" style="width:80.0%" />
+<p class="caption">elecciones</p>
+</div>
+<p>Los dos candidatos a alcaldes pertenecían a la misma coalición. Una estrategia bastante estúpida, pero el candidato desafiante,Sergio Orellana Montejo, quería destituir al hasta ese momento incumbente histórico de Taltal, Guillermo Hidalgo Ocampo. Y, digámoslo, la UDI nunca ha sido realmente una opción en la comuna. Excepto en el 2008, pero esa historia es para otro momento.</p>
