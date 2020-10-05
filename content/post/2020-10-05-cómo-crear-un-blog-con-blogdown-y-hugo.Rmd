@@ -1,0 +1,13 @@
+---
+title: cómo crear un blog con blogdown y hugo
+author: Soledad Araya
+date: '2020-10-05'
+slug: cómo-crear-un-blog-con-blogdown-y-hugo
+categories:
+  - talleres
+tags: []
+---
+
+![Oreja de Zorro - Desierto Florido](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/imagen_zorro.png){width=50%}
+
+Hoy posiblemente responderé las preguntas: ¿cómo creaste esto? ¿es difícil? ¿cuántas veces borraste tu blog antes de publicar este? La última respuesta es: lo borré tanto que olvidé el primer modelo que hice de éste hace semanas.
