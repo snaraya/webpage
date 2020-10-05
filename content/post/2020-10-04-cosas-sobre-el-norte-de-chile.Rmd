@@ -8,10 +8,50 @@ categories:
 tags:
   - plot
   - tonteras
+editor_options: 
+  chunk_output_type: console
 ---
+
+
+
 
 Usando R Markdown para ver qué tan roja ha sido la segunda región desde las elecciones de 1992, primer año en el que se realizaron elecciones locales después del regreso a la democracia. Durante *tres* periodos electorales los alcaldes iban a elecciones en conjunto con los concejales, el concejal con más del... 40% o 50% de los votos, no lo recuerdo en este momento, era electo alcalde. En el caso de que ningún concejal sacara ese porcentaje, los concejales electos decidían. Durante esos periosos de vió, además, cómo la Concertación y la Alianza se repartían las municipalidades dividiendo el periodo en 2 años. Uno para la Concerta y otro para la Alianza.
 
-```{r}
+
+```{r include = FALSE, echo = FALSE}
+library(tidyverse)
+library(foreign)
+library(lubridate)
+```
+
+```{r include = FALSE, echo = FALSE}
+data_elecciones_15jul2020 <- readRDS("~/Dropbox (Personal)/Proyectos/Share Space Soledad/incumbente alcaldes/clean_data/data_elecciones_15jul2020.rds")
+```
+
+Cargué la base de datos y los paquetes que usaré, `tidyverse` para las compañeras.
+
+Haré un simple `ggplot` para que veamos qué onda la segunda región:
+
+```{r echo = FALSE}
+
+data <- data_elecciones_15jul2020 %>% 
+  filter(codigo_region_desde_2008 == "02") %>% 
+  select(fecha_eleccion, comuna, votos, coalicion, primera_mayoria, segunda_mayoria) %>% 
+  pivot_longer(cols = 5:6) %>% 
+  mutate(ano = year(fecha_eleccion))
+
+coalicion_colores <- c("ALIANZA" = "#044DDF", "CONCERTACION" = "#DF0404", 
+                       "INDEPENDIENTES" ="#0BA904", "OTROS" = "#F5D806")
+
+ggplot(data, aes(x = ano, y = value, group = name, color = coalicion)) +
+  geom_line() +
+  facet_wrap(~comuna) +
+  scale_x_continuous(breaks = seq(1996, 2016, by=4)) +
+  scale_color_manual(name = NULL, values = coalicion_colores) +
+  labs(x = "Año de elección", y = "Porcentaje de votación") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
 
 ```
+
+
