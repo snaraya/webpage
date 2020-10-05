@@ -77,15 +77,18 @@ Ahora, podríamos evaluar uno a uno el desempeño de las coaliciones. Para eso, 
 
 ```{r warning = FALSE}
 plot_a +
-  gghighlight(coalicion == "Concertación", calculate_per_facet = T, use_direct_label = FALSE)
+  gghighlight(coalicion == "Concertación", calculate_per_facet = T, 
+              use_direct_label = FALSE)
 ```
 
 También, podríamos poner el % de la persona que ganó las elecciones si y sólo si la persona es de la Concertación.
 
 ```{r warning = FALSE}
 plot_a +
-  geom_text(data = data[data$coalicion=='Concertación',], aes(label = round(value, digits = 2)), vjust = -1) + 
-  gghighlight(coalicion == "Concertación", calculate_per_facet = T, use_direct_label = FALSE)
+  geom_text(data = data[data$coalicion=='Concertación',], 
+            aes(label = round(value, digits = 2)), vjust = -1, size = 2) + 
+  gghighlight(coalicion == "Concertación", calculate_per_facet = T, 
+              use_direct_label = FALSE)
 ```
 
 ¿Por qué la coalición Concertación sacó tantos votos el 2012 en Taltal?
