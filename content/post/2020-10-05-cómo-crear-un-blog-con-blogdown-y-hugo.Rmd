@@ -30,7 +30,7 @@ Entonces, empecemos:
 
 Si ya tienen una cuenta en GitHub, este paso es simple:
 
-![Repositorio](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog01.png){width=70%}
+![Repositorio](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog01.png){width=100%}
 
 Sólo aclarar: si quieren que su página esté contenida en GitHub Pages, tienen que nombrar el repositorio con el nombre de su cuenta de Git. En mi caso, tendría que ser "snaraya.github.io". Como usaré Netlify, no es necesario utilizar el mismo nombre. 
 
@@ -38,7 +38,7 @@ Sólo aclarar: si quieren que su página esté contenida en GitHub Pages, tienen
 
 Luego de crear el repositorio es momento de clonarlo. Esto lo puedes hacer a través de **Github Desktop** o usando la terminal. Como soy usuaria de macOS, _así que me disculpo de antemano por mis privilegios_, usaré la terminal. El primer paso `cd Documents` es para ubicar(me) dentro del computador, o sea, el directorio donde clonaré mi carpeta de GitHub.
 
-![Terminal](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog02.png){width=70%}
+![Terminal](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog02.png){width=100%}
 
 ### Tercero: instalación de `blogdown` y `hugo`
 
@@ -59,7 +59,7 @@ install_hugo()
 
 Creamos un proyecto en la carpeta que clonamos desde GitHub:
 
-![New Project](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog03.png){width=70%}
+![New Project](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog03.png){width=100%}
 
 Una vez creada, lo primero que harás será editar el documento `.gitignore`:
 
@@ -89,7 +89,7 @@ Pero si quieres escoger un tema pensando en tus necesidades, puedes hacerlo.
 
 Probablemente este será el paso más largo. Lo fue para mí. Primero, escribí en un cuaderno qué necesitaba de un blog y qué requisitos estéticos tenía que tener. Soy una persona bastante exigente. Para mí, tenía que ser un blog que priorizara los posts y que tuviera un espacio para poder ubicar mi CV. Hay temas sólo para desarrollar tu CV, pero me parecía una pérdida de oportunidad. Además, quería que fuera muy limpio.
 
-![themes.gohugo.io](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog04.png){width=70%}
+![themes.gohugo.io](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog04.png){width=100%}
 
 Cuando ya tienes el tema que quieres seleccionado, sólo tienes que escribir:
 
@@ -103,7 +103,7 @@ De igual manera, puedes poner el tema más tarde como `install_theme()`. Mucho o
 
 Con los Addins de `blogdown` todo es infinitamente más sencillo. Puedes, por ejemplo, subir imágenes y crear posts. Además, usando R, mantienes la configuración propia de R Markdown y además, en el caso de que algo falle, puedes usar HTML. Por ejemplo, yo la usé para cambiar la fuente de la letra en mi CV.
 
-![Addins](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog05.png){width=70%}
+![Addins](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog05.png){width=100%}
 
 
 ### Sexto: Netlify
@@ -114,7 +114,7 @@ Entonces, ¡Netlify!
 
 Puedes ingresar muy fácilmente con tu cuenta de GitHub y importar los repositories que creas necesarios. Puedes importar uno o todos. Yo sólo importé el que necesitaba: webpage.
 
-![Netlify](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog06.png){width=70%}
+![Netlify](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog06.png){width=100%}
 
 Luego de tener todo listo, tu página se cargará y cada vez que realices cambios en R Studio y los compartas con Git, los cambios se verán reflejados en la página web.
 
