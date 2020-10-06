@@ -10,4 +10,144 @@ tags: []
 
 ![Oreja de Zorro - Desierto Florido](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/imagen_zorro.png){width=50%}
 
-Hoy posiblemente responderé las preguntas: ¿cómo creaste esto? ¿es difícil? ¿cuántas veces borraste tu blog antes de publicar este? La última respuesta es: lo borré tanto que olvidé el primer modelo que hice de éste hace semanas.
+Hoy posiblemente responderé las preguntas: ¿cómo creaste esto? ¿es difícil? ¿cuántas veces borraste tu blog antes de publicar este? La última respuesta es: lo borré tanto que olvidé el primer modelo que hice de éste hace semanas. Yo lo hice siguiendo [este tutorial](https://www.kirenz.com/post/2019-07-20-up-and-running-with-blogdown/) y resolviendo algunos problemas con el confiable googleo. Les contaré un poco de mi experiencia desde que empecé con la idea de crear un blog hasta ahora.
+
+Lo primero que hice fue crearme un repositorio en GitHub para crear una página directamente desde ahí usando GitHub Pages. Vi un par de videos en YouTube dónde enseñaban a personalizar la página, principalmente utilizando Jekyll, y pude hacerlo. Realmente, el problema no era la dificultad. De hecho, utilizando Visual Studio Code o Atom, era bastante sencillo ir ordenando las carpetas como lo requiere Jekyll. El problema surgió cuando me hice la siguiente pregunta: ¿y cómo lo hago para crear un proyecto de R y crear contenido con R Markdown?
+
+Digámoslo... todo se derrumbó.
+
+Empecé a leer algunos blogs de otras personas y [Creating Websites with R Markdown](https://bookdown.org/yihui/blogdown/installation.html) que enseña sobre el uso de `blogdown` y cómo, finalmente, publicar tu blog. Jekyll tenía bastantes desventajas al momento de usarlo con R Markdown porque no lee directamente los archivos .Rmd o .Rmarkdown. ¿Es posible hacer algo al respecto? Claramente sí, pero la idea es mantener el proceso lo más sencillo y simple posible. La competencia de Jekyll para la creación de páginas estáticas y publicación de archivos con el formato de R Markdown: **Hugo**.
+
+Como no tengo idea qué es una página web estática, hice las consultas respectivas y esta fue la explicación que pude entender con mayor facilidad:
+
+> ¿Qué es una página web estática? _"Static Web pages are very simple. It is written in languages such as HTML, JavaScript, CSS, etc. For static web pages when a server receives a request for a web page, then the server sends the response to the client without doing any additional process. And these web pages are seen through a web browser. In static web pages, Pages will remain the same until someone changes it manually"_. Como el contenido de nuestros blogs no requiere de cambios dinámicos como, por ejemplo, una página que contenga la información en tiempo real de los precios de la bolsa, nos es conveniente usar una página estática. - [Geeks for Geeks](https://www.geeksforgeeks.org/difference-between-static-and-dynamic-web-pages/)
+
+Si queremos hacer una página web y que ésta, en general, sea usada y manipulada directamente a través de R Studio, nos conviene usar Hugo, ¿por qué? Porque generamos nuestra página web con el simple comando `blogdown::new_site()`. No es necesaria más información al respecto.
+
+Entonces, empecemos:
+
+### Primero: Crearemos un repositorio en GitHub
+
+Si ya tienen una cuenta en GitHub, este paso es simple:
+
+![Repositorio](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog01.png){width=70%}
+
+Sólo aclarar: si quieren que su página esté contenida en GitHub Pages, tienen que nombrar el repositorio con el nombre de su cuenta de Git. En mi caso, tendría que ser "snaraya.github.io". Como usaré Netlify, no es necesario utilizar el mismo nombre. 
+
+### Segundo: clonar la carpeta
+
+Luego de crear el repositorio es momento de clonarlo. Esto lo puedes hacer a través de **Github Desktop** o usando la terminal. Como soy usuaria de macOS, _así que me disculpo de antemano por mis privilegios_, usaré la terminal. El primer paso `cd Documents` es para ubicar(me) dentro del computador, o sea, el directorio donde clonaré mi carpeta de GitHub.
+
+![Terminal](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog02.png){width=70%}
+
+### Tercero: instalación de `blogdown` y `hugo`
+
+Asumo que tienes `devtools` instalado, si no, es momento de hacerlo. Para instalar `blogdown`:
+
+```
+devtools::install_github("rstudio/blogdown")
+```
+
+Una vez instalado `blogdown` puedes instalar Hugo de la manera que prefieras:
+
+```
+blogdown::install_hugo()
+# or
+library(blogdown)
+install_hugo()
+```
+
+Creamos un proyecto en la carpeta que clonamos desde GitHub:
+
+![New Project](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog03.png){width=70%}
+
+Una vez creada, lo primero que harás será editar el documento `.gitignore`:
+
+```
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+blogdown
+.DS_Store # Si eres un usuario de Windows: Thumbs.db
+public/ # Si usas Netlyfi
+```
+
+### Cuarto: ¡creamos el blog!
+
+Después de todos esos pasos, ya estamos a un segundo de crear nuestro blog. Si quieres empezar a publicar ahora-ya, solo tienes que poner lo siguiente en la consola:
+
+```
+blogdown::new_site()
+```
+
+¡Listo! Ya tienes tu página.
+
+Para ir mejorando el contenido y ver directamente los cambios en Viewer de R Studio, puedes usar `blogdown::server_site()`. De es manera, el sitio te irá mostrando los cambios localmente.
+
+Pero si quieres escoger un tema pensando en tus necesidades, puedes hacerlo.
+
+Probablemente este será el paso más largo. Lo fue para mí. Primero, escribí en un cuaderno qué necesitaba de un blog y qué requisitos estéticos tenía que tener. Soy una persona bastante exigente. Para mí, tenía que ser un blog que priorizara los posts y que tuviera un espacio para poder ubicar mi CV. Hay temas sólo para desarrollar tu CV, pero me parecía una pérdida de oportunidad. Además, quería que fuera muy limpio.
+
+![themes.gohugo.io](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog04.png){width=70%}
+
+Cuando ya tienes el tema que quieres seleccionado, sólo tienes que escribir:
+
+```
+blogdown::new_site(theme = "gcushen/hugo-academic", theme_example = T)
+```
+
+De igual manera, puedes poner el tema más tarde como `install_theme()`. Mucho ojo: necesitas detener el servidor antes de usar nuevamente la consola, ¿cómo? con `stop_server()`. 
+
+### Quinto: addins.
+
+Con los Addins de `blogdown` todo es infinitamente más sencillo. Puedes, por ejemplo, subir imágenes y crear posts. Además, usando R, mantienes la configuración propia de R Markdown y además, en el caso de que algo falle, puedes usar HTML. Por ejemplo, yo la usé para cambiar la fuente de la letra en mi CV.
+
+![Addins](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog05.png){width=70%}
+
+
+### Sexto: Netlify
+
+Entonces, ya tenemos nuestro blog. Hicimos un post para ver qué onda y modificamos algunas cosas con HTML. Ha llegado el momento de publicarlo. Usaremos Netlify porque además, en el caso de que tengas un dominio comprado, puedes cambiarlo muy fácilmente, ¿planeo comprar uno? Tal vez, si sigo usando el blog con la continuidad que quiero. 
+
+Entonces, ¡Netlify!
+
+Puedes ingresar muy fácilmente con tu cuenta de GitHub y importar los repositories que creas necesarios. Puedes importar uno o todos. Yo sólo importé el que necesitaba: webpage.
+
+![Netlify](/post/2020-10-05-cómo-crear-un-blog-con-blogdown-y-hugo_files/crear_blog06.png){width=70%}
+
+Luego de tener todo listo, tu página se cargará y cada vez que realices cambios en R Studio y los compartas con Git, los cambios se verán reflejados en la página web.
+
+### Séptimo: problemas que tuve
+
+1. Una de las cosas que tuve que hacer para poder subir mi sitio a Netlify es poner el siguiente código en un archivo denominado netlify.toml. Lo único que hay que cambiar es la versión de Hugo con la que estamos trabajando. Es posible ver eso con `blogdown::hugo_version()`
+
+```
+[build]
+  publish = "public"
+  command = "hugo"
+[context.production.environment]
+  HUGO_VERSION = "0.74.3"
+  HUGO_ENV = "production"
+  HUGO_ENABLEGITINFO = "true"
+[context.branch-deploy.environment]
+  HUGO_VERSION = "0.74.3"
+[context.deploy-preview.environment]
+  HUGO_VERSION = "0.74.3"
+```
+
+Sin este documento, la compilación de mis archivos/blog fallaba. 
+
+2. No leía código HTML: para solucionarlo, sólo agregué...
+
+```
+[markup.goldmark.renderer]
+    unsafe = true
+```
+
+...al archivo config.toml.
+
+### Entonces, ¿ahora qué?
+
+Entre más usas esta herramientas, más dudas van saliendo, porque siempre vas necesitando más cosas mientras avanzas. En un comienzo, con Jakyll, cambié bastante el CSS de la página. Ahora podría hacer lo mismo, pero me gusta la configuración que viene por defecto. También, si quisieras agregar alguna página o quizás, agregar algún tipo de cambio, podrías hacerlo con facilidad viendo directamente el server local y bueno, metiendo mano. Me han dicho que así se aprende ¡Suerte!
+
