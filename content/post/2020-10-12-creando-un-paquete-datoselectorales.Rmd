@@ -1,0 +1,49 @@
+---
+title: creando un paquete datoselectorales
+author: Soledad Araya
+date: '2020-10-12'
+slug: creando-un-paquete-datoselectorales
+categories:
+  - paquete
+tags: []
+---
+
+Hace bastante tiempo vengo trabajando como freelance usando diariamente los resultados electorales. Normalmente, esto requiere descargar un excel, formatear los nombres y bueno, dependiendo de lo que necesite, empezar a transformar las variables. Pero trabajar con un excel siempre me ha complicado. Por eso, luego de la última tarea que me encargaron, dije ¿por qué no desarrollar un paquete que contenga los resultados electorales de Chile?
+
+Así nació datoselectorales:
+
+![datoselectorales](/post/2020-10-12-creando-un-paquete-datoselectorales_files/datoselectorales.png)
+
+El otro día, escuchaba una charla de LatinR donde hablaban muchas personas que habían desarrollado paquetes, todos con razones distintas, y me animé a hacer algo para facilitar mi trabajo como freelance. Les dejo el link de la charla [aquí](https://www.youtube.com/watch?v=UYvSv8StDa8). Quizás una de las cosas que más me gusta de trabajar regularmente con R, es tener que aprender un poco más todos los días. Literalmente nunca pensé que haría un paquete, por pequeño que sea.
+
+(¿Debería haberlo nombrado resultados electorales? Siempre digo datos electorales y ahora pienso que lo pueden relacionar con los datos de circunscripción electoral y mesas.)
+
+Para instalarlo, tienes que tener `devtools`:
+
+```
+devtools::install_packages("snaraya/datoselectorales")
+```
+
+Hasta el momento, hay dos bases de datos: una base de datos `presidencial` y otra `alcaldes`. No quise ponerle "municipales" porque en las elecciones municipales recaen las elecciones de alcaldes y concejales. Además, hay un problema ahí, porque las elecciones municipales cambiaron su sistema electoral a comienzos de los 2000. Así que ahí hay otra cosa que resolver.
+
+```{r message = F}
+library(datoselectorales)
+library(tidyverse)
+```
+
+Para que tengan un vistazo de ambas bases:
+
+### Presidenciales:
+
+```{r}
+glimpse(presidenciales)
+```
+
+### Alcaldes:
+
+```{r}
+glimpse(alcaldes)
+```
+
+Lo único que hice fue eliminar los caracteres especiales y poner las variables `character` en minúscula porque simplifican mi forma de trabajo. Quizás no es necesario. Como tampoco era necesario hacer el sticker, pero ahí se fueron 30 minutos de mi vida que nunca volverán. Pero bueno, la lección es que nada es tan complicado como lo parece. En este mismo post pretendo dejar un tutorial para hacer algo tan sencillo como esto ya que entre tanto buscar, logré dar con las mejores herramientas para hacerlo.
+
